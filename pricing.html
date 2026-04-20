@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — NexusCommerce</title>
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    
+    .page-hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .page-hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.2) brightness(0.15);
+    }
+
+    .page-hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(2,4,8,0.95) 40%, rgba(2,4,8,0.6) 100%);
+    }
+
+    .page-hero > .container { position: relative; z-index: 2; }
+
+    .page-hero {
+      padding: calc(72px + clamp(4rem, 8vw, 7rem)) 0 clamp(4rem, 8vw, 6rem);
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero h1 .accent { color: var(--color-accent); }
+
+    .page-hero p {
+      color: var(--color-muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ── PRICING GRID ── */
+    .pricing-section { padding: var(--spacing-section) 0; position: relative; z-index: 1; }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--color-border);
+      border: 1px solid var(--color-border);
+      align-items: start;
+    }
+
+    .pricing-card {
+      background: var(--bg-secondary);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .pricing-card.featured {
+      background: var(--bg-card);
+      border-top: 3px solid var(--color-accent);
+    }
+
+    .pricing-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: -1px;
+      right: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      background: var(--color-accent);
+      color: var(--bg-primary);
+      padding: 0.3rem 0.75rem;
+      font-weight: 700;
+    }
+
+    .pricing-card:hover:not(.featured) { background: var(--bg-card); }
+
+    .tier-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tier-badge.accent { color: var(--color-accent); }
+    .tier-badge.accent-2 { color: var(--color-accent-2); }
+    .tier-badge.warm { color: var(--color-accent-warm); }
+
+    .tier-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .plan-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .plan-desc {
+      color: var(--color-muted);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      min-height: 60px;
+    }
+
+    .plan-price {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .price-setup {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-setup .currency {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--color-muted);
+    }
+
+    .price-setup .amount {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--color-text);
+    }
+
+    .price-setup .period {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--color-muted);
+      letter-spacing: 0.1em;
+    }
+
+    .price-mgmt {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--color-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .price-mgmt span { color: var(--color-accent-2); }
+
+    .plan-features { list-style: none; margin-bottom: 2rem; }
+
+    .plan-features li {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      padding: 0.6rem 0;
+      font-size: 0.88rem;
+      color: var(--color-muted);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .plan-features li:last-child { border-bottom: none; }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--color-accent-2);
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 0.8rem;
+      margin-top: 0.1rem;
+    }
+
+    .plan-features li.na {
+      opacity: 0.4;
+    }
+
+    .plan-features li.na::before {
+      content: '—';
+      color: var(--color-muted);
+    }
+
+    .plan-cta {
+      width: 100%;
+      display: block;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 1.5rem;
+      border: 1px solid var(--color-border-bright);
+      color: var(--color-accent);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .plan-cta:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--glow);
+    }
+
+    .plan-cta.primary {
+      background: var(--color-accent);
+      color: var(--bg-primary);
+      border-color: var(--color-accent);
+    }
+
+    .plan-cta.primary:hover {
+      background: transparent;
+      color: var(--color-accent);
+    }
+
+    /* ── FEATURE COMPARE ── */
+    .compare-section { padding: var(--spacing-section) 0; border-top: 1px solid var(--color-border); position: relative; z-index: 1; }
+
+    .compare-table {
+      border: 1px solid var(--color-border);
+      margin-top: 3rem;
+      overflow: hidden;
+    }
+
+    .compare-header {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr 1fr 1fr;
+      background: var(--bg-secondary);
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    .compare-header div {
+      padding: 1rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .compare-header div:first-child { text-align: left; color: var(--color-muted); }
+    .compare-header div:nth-child(2) { color: var(--color-muted); border-left: 1px solid var(--color-border); }
+    .compare-header div:nth-child(3) { color: var(--color-accent); border-left: 1px solid var(--color-border); background: rgba(0,200,255,0.04); }
+    .compare-header div:nth-child(4) { color: var(--color-accent-warm); border-left: 1px solid var(--color-border); }
+
+    .compare-group-label {
+      padding: 0.6rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      background: rgba(0,200,255,0.04);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr 1fr 1fr;
+      border-bottom: 1px solid var(--color-border);
+      transition: var(--transition);
+    }
+
+    .compare-row:last-child { border-bottom: none; }
+    .compare-row:hover { background: var(--bg-glass); }
+
+    .compare-row div {
+      padding: 0.85rem 1.25rem;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .compare-row div:first-child {
+      text-align: left;
+      color: var(--color-text);
+      border-right: 1px solid var(--color-border);
+      font-size: 0.88rem;
+    }
+
+    .compare-row div:nth-child(3) { background: rgba(0,200,255,0.02); border-left: 1px solid var(--color-border); border-right: 1px solid var(--color-border); }
+    .compare-row div:nth-child(4) { }
+
+    .check { color: var(--color-accent-2); font-weight: 700; }
+    .cross { color: rgba(255,255,255,0.2); }
+    .partial { color: var(--color-accent); font-size: 0.8rem; font-family: var(--font-mono); }
+
+    /* ── FAQ ── */
+    .faq-section { padding: var(--spacing-section) 0; border-top: 1px solid var(--color-border); position: relative; z-index: 1; }
+
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-border); border: 1px solid var(--color-border); margin-top: 3rem; }
+
+    .faq-item { background: var(--bg-secondary); padding: 2rem; transition: var(--transition); }
+    .faq-item:hover { background: var(--bg-card); }
+
+    .faq-item h4 { font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--color-text); }
+    .faq-item p { font-size: 0.88rem; color: var(--color-muted); line-height: 1.8; }
+
+    @media (max-width: 1024px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card.featured { order: -1; }
+      .compare-header, .compare-row { grid-template-columns: 2fr 0.8fr 0.8fr 0.8fr; }
+    }
+
+    @media (max-width: 768px) {
+      .faq-grid { grid-template-columns: 1fr; }
+      .compare-header div:first-child, .compare-row div:first-child { font-size: 0.78rem; }
+      .compare-header, .compare-row { grid-template-columns: 1.8fr 0.7fr 0.7fr 0.7fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><div class="logo-mark"></div>NEXUS<span class="accent">COMMERCE</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html" class="active">Pricing</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="about.html">About</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="contact.html">Get Started</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-bg">
+    <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=1800&auto=format&fit=crop&q=80" alt="Revenue growth charts" loading="eager">
+  </div>
+  <div class="container">
+    <div class="section-label animate-in" style="justify-content:center">Investment</div>
+    <h1 class="animate-in" data-delay="100">Straightforward <span class="accent">Pricing.</span><br>Real Returns.</h1>
+    <p class="animate-in" data-delay="200">Every tier includes a fully built store and dedicated management. You choose the scale, the channels, and the level of AI integration. We handle everything else.</p>
+  </div>
+</section>
+
+<section class="pricing-section">
+  <div class="container">
+    <div class="pricing-grid animate-in">
+
+      <!-- Tier 1: Launch -->
+      <div class="pricing-card">
+        <div class="tier-badge">Tier 01</div>
+        <div class="plan-name">LAUNCH</div>
+        <p class="plan-desc">For entrepreneurs entering ecommerce for the first time. A validated niche, a live store, and a managed foundation.</p>
+        <div class="plan-price">
+          <div class="price-setup">
+            <span class="currency">$</span>
+            <span class="amount">4,997</span>
+          </div>
+          <div class="price-setup" style="margin-top:0.35rem">
+            <span class="currency" style="font-size:0.75rem">+</span>
+            <span class="amount" style="font-size:1.75rem">$997</span>
+            <span class="period">/month management</span>
+          </div>
+          <div class="price-mgmt" style="margin-top:0.5rem">One-time setup · Ongoing retainer</div>
+        </div>
+        <ul class="plan-features">
+          <li>Custom-built ecommerce storefront</li>
+          <li>Niche selection & market validation</li>
+          <li>Supplier sourcing & setup</li>
+          <li>Up to 100 SKUs listed</li>
+          <li>1 sales channel (your storefront)</li>
+          <li>Dedicated certified manager</li>
+          <li>Monthly performance report</li>
+          <li class="na">eBay / Google / Walmart listing</li>
+          <li class="na">AI optimization layer</li>
+          <li class="na">Competitor intelligence tools</li>
+        </ul>
+        <a href="contact.html" class="plan-cta">Start With Launch →</a>
+      </div>
+
+      <!-- Tier 2: Scale (Featured) -->
+      <div class="pricing-card featured">
+        <div class="tier-badge accent">Tier 02</div>
+        <div class="plan-name">SCALE</div>
+        <p class="plan-desc">For business owners ready to dominate their niche across every major marketplace. Multi-channel. AI-optimized.</p>
+        <div class="plan-price">
+          <div class="price-setup">
+            <span class="currency">$</span>
+            <span class="amount">9,997</span>
+          </div>
+          <div class="price-setup" style="margin-top:0.35rem">
+            <span class="currency" style="font-size:0.75rem">+</span>
+            <span class="amount" style="font-size:1.75rem">$1,997</span>
+            <span class="period">/month management</span>
+          </div>
+          <div class="price-mgmt" style="margin-top:0.5rem">One-time setup · Ongoing retainer</div>
+        </div>
+        <ul class="plan-features">
+          <li>Everything in Launch, plus:</li>
+          <li>eBay store setup & full management</li>
+          <li>Google Shopping integration & campaigns</li>
+          <li>Up to 500 SKUs across all channels</li>
+          <li>AI-powered listing optimization</li>
+          <li>Real-time competitor price monitoring</li>
+          <li>Automated repricing engine</li>
+          <li>Bi-weekly strategy calls</li>
+          <li>Advanced analytics dashboard</li>
+          <li class="na">Walmart Marketplace</li>
+        </ul>
+        <a href="contact.html" class="plan-cta primary">Start With Scale →</a>
+      </div>
+
+      <!-- Tier 3: Dominance -->
+      <div class="pricing-card">
+        <div class="tier-badge warm">Tier 03</div>
+        <div class="plan-name">DOMINANCE</div>
+        <p class="plan-desc">The full NexusCommerce stack. Every channel, every AI tool, unlimited SKUs. Built for serious operators.</p>
+        <div class="plan-price">
+          <div class="price-setup">
+            <span class="currency">$</span>
+            <span class="amount">19,997</span>
+          </div>
+          <div class="price-setup" style="margin-top:0.35rem">
+            <span class="currency" style="font-size:0.75rem">+</span>
+            <span class="amount" style="font-size:1.75rem">$3,497</span>
+            <span class="period">/month management</span>
+          </div>
+          <div class="price-mgmt" style="margin-top:0.5rem">One-time setup · Ongoing retainer</div>
+        </div>
+        <ul class="plan-features">
+          <li>Everything in Scale, plus:</li>
+          <li>Walmart Marketplace onboarding</li>
+          <li>Unlimited SKUs across all channels</li>
+          <li>AI demand forecasting & inventory automation</li>
+          <li>AI-powered customer service integration</li>
+          <li>Priority dedicated manager + backup specialist</li>
+          <li>Weekly strategy sessions</li>
+          <li>Custom performance dashboards</li>
+          <li>Quarterly niche expansion analysis</li>
+          <li>Direct founder access & advisory</li>
+        </ul>
+        <a href="contact.html" class="plan-cta">Start With Dominance →</a>
+      </div>
+
+    </div>
+
+    <p class="animate-in" style="text-align:center;color:var(--color-muted);font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;margin-top:2rem;padding:1.25rem;border:1px solid var(--color-border);">
+      Already have a store and just need management or AI integration? <a href="contact.html" style="color:var(--color-accent);text-decoration:none;">Contact us for a custom quote →</a>
+    </p>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="compare-section">
+  <div class="container">
+    <div class="section-label animate-in">Full Breakdown</div>
+    <h2 class="section-title animate-in" data-delay="100">Compare Every <span class="accent">Feature</span></h2>
+    <div class="compare-table animate-in" data-delay="200">
+      <div class="compare-header">
+        <div>Feature</div>
+        <div>Launch</div>
+        <div>Scale ★</div>
+        <div>Dominance</div>
+      </div>
+
+      <div class="compare-group-label">Store & Build</div>
+      <div class="compare-row"><div>Custom storefront design</div><div class="check">✓</div><div class="check">✓</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>Niche validation & selection</div><div class="check">✓</div><div class="check">✓</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>Supplier network setup</div><div class="check">✓</div><div class="check">✓</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>SKU capacity</div><div class="partial">100</div><div class="partial">500</div><div class="partial">Unlimited</div></div>
+
+      <div class="compare-group-label">Sales Channels</div>
+      <div class="compare-row"><div>Your ecommerce storefront</div><div class="check">✓</div><div class="check">✓</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>eBay store & management</div><div class="cross">—</div><div class="check">✓</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>Google Shopping campaigns</div><div class="cross">—</div><div class="check">✓</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>Walmart Marketplace</div><div class="cross">—</div><div class="cross">—</div><div class="check">✓</div></div>
+
+      <div class="compare-group-label">AI & Automation</div>
+      <div class="compare-row"><div>AI listing optimization</div><div class="cross">—</div><div class="check">✓</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>Real-time competitor monitoring</div><div class="cross">—</div><div class="check">✓</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>Automated repricing engine</div><div class="cross">—</div><div class="check">✓</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>AI demand forecasting</div><div class="cross">—</div><div class="cross">—</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>AI customer service integration</div><div class="cross">—</div><div class="cross">—</div><div class="check">✓</div></div>
+
+      <div class="compare-group-label">Management & Support</div>
+      <div class="compare-row"><div>Dedicated certified manager</div><div class="check">✓</div><div class="check">✓</div><div class="check">✓</div></div>
+      <div class="compare-row"><div>Strategy sessions</div><div class="partial">Monthly</div><div class="partial">Bi-weekly</div><div class="partial">Weekly</div></div>
+      <div class="compare-row"><div>Performance reporting</div><div class="partial">Monthly</div><div class="partial">Advanced</div><div class="partial">Custom</div></div>
+      <div class="compare-row"><div>Founder direct access</div><div class="cross">—</div><div class="cross">—</div><div class="check">✓</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container">
+    <div class="section-label animate-in">Common Questions</div>
+    <h2 class="section-title animate-in" data-delay="100">Before You <span class="accent">Reach Out</span></h2>
+    <div class="faq-grid">
+      <div class="faq-item animate-in">
+        <h4>Do I need ecommerce experience?</h4>
+        <p>No. We work with complete beginners and seasoned resellers alike. If you already have a store, we can scale it. If you're starting from zero, we build it all for you.</p>
+      </div>
+      <div class="faq-item animate-in" data-delay="100">
+        <h4>How long until my store is live?</h4>
+        <p>Typically 4–8 weeks depending on niche complexity, supplier onboarding, and your tier. We don't rush — we build correctly the first time.</p>
+      </div>
+      <div class="faq-item animate-in" data-delay="0">
+        <h4>What if I already own a business?</h4>
+        <p>We frequently onboard clients who already have revenue. We audit what exists, identify gaps, and implement multi-channel expansion and AI optimization on top of your current operation.</p>
+      </div>
+      <div class="faq-item animate-in" data-delay="100">
+        <h4>Is the monthly management fee mandatory?</h4>
+        <p>Yes — ongoing management is part of what makes our clients successful. A store without expert management is just a website. Our certified managers are what drive consistent revenue growth.</p>
+      </div>
+      <div class="faq-item animate-in" data-delay="0">
+        <h4>Can I upgrade my tier later?</h4>
+        <p>Absolutely. Most clients start on Launch or Scale and upgrade as their revenue grows. The migration between tiers is smooth because we build with scalability in mind from day one.</p>
+      </div>
+      <div class="faq-item animate-in" data-delay="100">
+        <h4>What products will I sell?</h4>
+        <p>We validate and recommend niches based on your capital, goals, and market data. You approve the direction — we execute. We've built stores in everything from research peptides to consumer electronics.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><div class="logo-mark"></div>NEXUS<span class="accent">COMMERCE</span></a><p>We build turnkey ecommerce businesses that generate real revenue. Certified experts. Proven systems. Real results.</p></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Turnkey Store Builds</a></li><li><a href="services.html">Store Management</a></li><li><a href="services.html">Multi-Channel Listing</a></li><li><a href="services.html">AI Integration</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Platforms</h4><ul><li><a href="#">eBay</a></li><li><a href="#">Google Shopping</a></li><li><a href="#">Walmart Marketplace</a></li><li><a href="#">Shopify / WooCommerce</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 NexusCommerce. All rights reserved.</p>
+      <p>Certified Ecommerce Experts · AI-Powered Growth</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

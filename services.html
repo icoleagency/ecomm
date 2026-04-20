@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — NexusCommerce</title>
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    
+    .page-hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .page-hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.2) brightness(0.15);
+    }
+
+    .page-hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(2,4,8,0.95) 40%, rgba(2,4,8,0.6) 100%);
+    }
+
+    .page-hero > .container { position: relative; z-index: 2; }
+
+    .page-hero {
+      padding: calc(72px + clamp(4rem, 8vw, 7rem)) 0 clamp(4rem, 8vw, 6rem);
+      position: relative;
+      z-index: 1;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero h1 .accent { color: var(--color-accent); }
+
+    .page-hero p {
+      color: var(--color-muted);
+      font-size: 1.1rem;
+      max-width: 560px;
+      line-height: 1.8;
+    }
+
+    /* ── CORE SERVICES ── */
+    .services-section { padding: var(--spacing-section) 0; position: relative; z-index: 1; }
+
+    .service-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--color-border);
+      border: 1px solid var(--color-border);
+      margin-bottom: 1px;
+    }
+
+    .service-block:last-of-type { margin-bottom: 0; }
+
+    .service-info {
+      background: var(--bg-secondary);
+      padding: clamp(2rem, 4vw, 3.5rem);
+      transition: var(--transition);
+    }
+
+    .service-info:hover { background: var(--bg-card); }
+
+    .service-num {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--color-border-bright);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-info h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .service-info p {
+      color: var(--color-muted);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-features { list-style: none; }
+
+    .service-features li {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--color-muted);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    .service-features li:last-child { border-bottom: none; }
+
+    .service-features li::before {
+      content: '→';
+      color: var(--color-accent);
+      font-size: 0.7rem;
+    }
+
+    .service-visual {
+      background: var(--bg-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0,200,255,0.07) 0%, transparent 70%);
+    }
+
+    .service-diagram {
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .diagram-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      animation: spin linear infinite;
+    }
+
+    .diagram-ring:nth-child(1) { inset: 0; animation-duration: 20s; }
+    .diagram-ring:nth-child(2) { inset: 15%; animation-duration: 15s; animation-direction: reverse; border-color: rgba(0,200,255,0.3); }
+    .diagram-ring:nth-child(3) { inset: 30%; animation-duration: 10s; border-color: rgba(0,255,157,0.3); }
+
+    .diagram-ring::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .diagram-center {
+      font-family: var(--font-display);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      text-align: center;
+      z-index: 1;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Channel icons */
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .channel-box {
+      border: 1px solid var(--color-border);
+      background: var(--bg-glass);
+      padding: 1.25rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .channel-box:hover {
+      border-color: var(--color-border-bright);
+      box-shadow: var(--glow);
+    }
+
+    .channel-box .icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+
+    .channel-box .name {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    /* AI grid */
+    .ai-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .ai-pill {
+      border: 1px solid var(--color-border);
+      padding: 0.75rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--color-accent-2);
+      letter-spacing: 0.1em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(0,255,157,0.03);
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .ai-pill .dot {
+      width: 6px; height: 6px;
+      background: var(--color-accent-2);
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulse-glow 2s ease infinite;
+    }
+
+    /* ── PROCESS ── */
+    .process-section { padding: var(--spacing-section) 0; position: relative; z-index: 1; }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      margin-top: 3.5rem;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-accent-2));
+      z-index: 0;
+    }
+
+    .process-step {
+      text-align: center;
+      padding: 0 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--color-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-accent);
+      margin: 0 auto 1.5rem;
+      background: var(--bg-primary);
+      position: relative;
+    }
+
+    .step-num::before {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      background: rgba(0,200,255,0.08);
+    }
+
+    .process-step h3 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .process-step p {
+      font-size: 0.82rem;
+      color: var(--color-muted);
+      line-height: 1.6;
+    }
+
+    /* ── PLATFORMS ── */
+    .platforms-section { padding: var(--spacing-section) 0; position: relative; z-index: 1; border-top: 1px solid var(--color-border); }
+
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--color-border);
+      border: 1px solid var(--color-border);
+      margin-top: 3rem;
+    }
+
+    .platform-card {
+      background: var(--bg-secondary);
+      padding: 2.5rem 2rem;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .platform-card:hover {
+      background: var(--bg-card);
+      box-shadow: 0 0 40px rgba(0,200,255,0.1) inset;
+    }
+
+    .platform-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+
+    .platform-card h3 {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.75rem;
+    }
+
+    .platform-card p {
+      font-size: 0.83rem;
+      color: var(--color-muted);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1024px) {
+      .process-steps { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+      .process-steps::before { display: none; }
+      .platforms-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .service-block { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .platforms-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .process-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-mark"></div>
+      NEXUS<span class="accent">COMMERCE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="about.html">About</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="contact.html">Get Started</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg">
+    <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1800&auto=format&fit=crop&q=80" alt="Ecommerce warehouse fulfillment" loading="eager">
+  </div>
+  <div class="container">
+    <div class="section-label animate-in">What We Do</div>
+    <h1 class="animate-in" data-delay="100">Full-Stack<br><span class="accent">Ecommerce Services</span></h1>
+    <p class="animate-in" data-delay="200">From concept to first sale and beyond. Every service we offer is engineered for one outcome: your store generating consistent, scalable revenue.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <div class="container">
+
+    <!-- Service 1: Turnkey Builds -->
+    <div class="service-block animate-in">
+      <div class="service-info">
+        <div class="service-num">01</div>
+        <h2>Turnkey Store Builds</h2>
+        <p>We design, develop, and launch your entire ecommerce operation. You receive a fully operational business — products sourced, systems configured, ready to process orders from day one.</p>
+        <ul class="service-features">
+          <li>Custom storefront design (no templates)</li>
+          <li>Product sourcing & supplier network setup</li>
+          <li>Payment processing & checkout optimization</li>
+          <li>Niche market research & validation</li>
+          <li>SEO structure & metadata configuration</li>
+          <li>Legal & compliance framework</li>
+        </ul>
+      </div>
+      <div class="service-visual">
+        <div class="service-diagram">
+          <div class="diagram-ring"></div>
+          <div class="diagram-ring"></div>
+          <div class="diagram-ring"></div>
+          <div class="diagram-center">YOUR<br>STORE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service 2: Multi-Channel -->
+    <div class="service-block animate-in">
+      <div class="service-visual">
+        <div class="channel-grid">
+          <div class="channel-box">
+            <div class="icon">🛒</div>
+            <div class="name">eBay</div>
+          </div>
+          <div class="channel-box">
+            <div class="icon">🛍️</div>
+            <div class="name">Google Shopping</div>
+          </div>
+          <div class="channel-box">
+            <div class="icon">⚡</div>
+            <div class="name">Walmart</div>
+          </div>
+          <div class="channel-box">
+            <div class="icon">◈</div>
+            <div class="name">Your Store</div>
+          </div>
+        </div>
+      </div>
+      <div class="service-info">
+        <div class="service-num">02</div>
+        <h2>Multi-Channel Distribution</h2>
+        <p>Your products, everywhere buyers are looking. We handle the integration, listing optimization, and ongoing management across every major marketplace — synchronized in real time.</p>
+        <ul class="service-features">
+          <li>eBay store setup & listing management</li>
+          <li>Google Shopping feed creation & optimization</li>
+          <li>Walmart Marketplace onboarding & listings</li>
+          <li>Inventory sync across all channels</li>
+          <li>Automated repricing strategies</li>
+          <li>Platform compliance & policy management</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Service 3: Expert Management -->
+    <div class="service-block animate-in">
+      <div class="service-info">
+        <div class="service-num">03</div>
+        <h2>Certified Store Management</h2>
+        <p>A dedicated ecommerce expert manages your store full-time. This isn't a VA from a task board — it's a certified professional who lives in your analytics, scales what works, and cuts what doesn't.</p>
+        <ul class="service-features">
+          <li>Dedicated certified ecommerce manager</li>
+          <li>Weekly performance reporting & analysis</li>
+          <li>Product listing creation & optimization</li>
+          <li>Customer service management</li>
+          <li>Return & dispute resolution</li>
+          <li>Monthly strategy & growth planning</li>
+        </ul>
+      </div>
+      <div class="service-visual">
+        <div class="service-diagram">
+          <div class="diagram-ring"></div>
+          <div class="diagram-ring"></div>
+          <div class="diagram-center">EXPERT<br>MANAGED</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service 4: AI -->
+    <div class="service-block animate-in">
+      <div class="service-visual">
+        <div class="ai-pills">
+          <div class="ai-pill"><span class="dot"></span>AI Listing Optimization Active</div>
+          <div class="ai-pill"><span class="dot"></span>Competitor Price Monitor Running</div>
+          <div class="ai-pill"><span class="dot"></span>Demand Forecasting Enabled</div>
+          <div class="ai-pill"><span class="dot"></span>Conversion Analysis Running</div>
+          <div class="ai-pill"><span class="dot"></span>Reorder Triggers Configured</div>
+        </div>
+      </div>
+      <div class="service-info">
+        <div class="service-num">04</div>
+        <h2>AI-Powered Growth Layer</h2>
+        <p>We're integrating AI into every layer of store management. From automated listing copy to predictive inventory to real-time competitor intelligence — your store gets smarter every day.</p>
+        <ul class="service-features">
+          <li>AI-generated & optimized product listings</li>
+          <li>Real-time competitive pricing intelligence</li>
+          <li>Demand forecasting & inventory automation</li>
+          <li>Conversion rate optimization via A/B testing</li>
+          <li>AI customer service & chatbot integration</li>
+          <li>Automated performance reporting</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="container">
+    <div class="section-label animate-in">How It Works</div>
+    <h2 class="section-title animate-in" data-delay="100">From Zero to <span class="accent">Revenue.</span></h2>
+
+    <div class="process-steps">
+      <div class="process-step animate-in" data-delay="0">
+        <div class="step-num">01</div>
+        <h3>Strategy Call</h3>
+        <p>We learn your goals, capital, and timeline. You learn what's actually possible.</p>
+      </div>
+      <div class="process-step animate-in" data-delay="100">
+        <div class="step-num">02</div>
+        <h3>Niche Selection</h3>
+        <p>We identify validated markets with real margins — no guesswork, no experiments with your money.</p>
+      </div>
+      <div class="process-step animate-in" data-delay="200">
+        <div class="step-num">03</div>
+        <h3>Build Phase</h3>
+        <p>Our team engineers your store, supplier relationships, and multi-channel infrastructure.</p>
+      </div>
+      <div class="process-step animate-in" data-delay="300">
+        <div class="step-num">04</div>
+        <h3>Launch & List</h3>
+        <p>Go live across your store, eBay, Google Shopping, and Walmart simultaneously.</p>
+      </div>
+      <div class="process-step animate-in" data-delay="400">
+        <div class="step-num">05</div>
+        <h3>Manage & Scale</h3>
+        <p>Your certified manager takes the wheel. We optimize, scale, and grow your revenue month over month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section class="platforms-section">
+  <div class="container">
+    <div class="section-label animate-in">Platforms</div>
+    <h2 class="section-title animate-in" data-delay="100">Where We <span class="accent">Put Your Products</span></h2>
+    <div class="platforms-grid">
+      <div class="platform-card animate-in">
+        <div class="platform-icon">🛒</div>
+        <h3>eBay</h3>
+        <p>Optimized listings, seller reputation management, promoted listings strategy, and full catalog management.</p>
+      </div>
+      <div class="platform-card animate-in" data-delay="100">
+        <div class="platform-icon">🛍️</div>
+        <h3>Google Shopping</h3>
+        <p>Merchant Center setup, product feed optimization, Smart Shopping campaigns, and ongoing bid management.</p>
+      </div>
+      <div class="platform-card animate-in" data-delay="200">
+        <div class="platform-icon">⚡</div>
+        <h3>Walmart Marketplace</h3>
+        <p>Seller account onboarding, catalog uploads, competitive pricing strategy, and fulfillment coordination.</p>
+      </div>
+      <div class="platform-card animate-in" data-delay="300">
+        <div class="platform-icon">◈</div>
+        <h3>Your Storefront</h3>
+        <p>Custom-built on Shopify or WooCommerce. Your brand, your store, engineered to convert.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><div class="logo-mark"></div>NEXUS<span class="accent">COMMERCE</span></a>
+        <p>We build turnkey ecommerce businesses that generate real revenue. Certified experts. Proven systems. Real results.</p>
+      </div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Turnkey Store Builds</a></li><li><a href="services.html">Store Management</a></li><li><a href="services.html">Multi-Channel Listing</a></li><li><a href="services.html">AI Integration</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Platforms</h4><ul><li><a href="#">eBay</a></li><li><a href="#">Google Shopping</a></li><li><a href="#">Walmart Marketplace</a></li><li><a href="#">Shopify / WooCommerce</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 NexusCommerce. All rights reserved.</p>
+      <p>Certified Ecommerce Experts · AI-Powered Growth</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

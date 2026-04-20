@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — NexusCommerce</title>
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    
+    .page-hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .page-hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.2) brightness(0.15);
+    }
+
+    .page-hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(2,4,8,0.95) 40%, rgba(2,4,8,0.6) 100%);
+    }
+
+    .page-hero > .container { position: relative; z-index: 2; }
+
+    .page-hero {
+      padding: calc(72px + clamp(4rem, 8vw, 7rem)) 0 clamp(4rem, 8vw, 6rem);
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero h1 .accent { color: var(--color-accent); }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .page-hero p {
+      color: var(--color-muted);
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    .hero-manifesto {
+      border-left: 2px solid var(--color-accent);
+      padding-left: 2rem;
+    }
+
+    .hero-manifesto p {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      color: var(--color-text);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+
+    .hero-manifesto p:last-child { margin-bottom: 0; }
+
+    /* ── PHILOSOPHY ── */
+    .philosophy-section { padding: var(--spacing-section) 0; position: relative; z-index: 1; }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--color-border);
+      border: 1px solid var(--color-border);
+      margin-top: 3rem;
+    }
+
+    .philosophy-item {
+      background: var(--bg-secondary);
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .philosophy-item:hover { background: var(--bg-card); }
+
+    .philosophy-item::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-accent), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .philosophy-item:hover::after { opacity: 1; }
+
+    .p-icon {
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .philosophy-item h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .philosophy-item p {
+      color: var(--color-muted);
+      font-size: 0.88rem;
+      line-height: 1.8;
+    }
+
+    /* ── TEAM ── */
+    .team-section { padding: var(--spacing-section) 0; border-top: 1px solid var(--color-border); position: relative; z-index: 1; }
+
+    .team-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-bottom: 4rem;
+    }
+
+    .team-intro p {
+      color: var(--color-muted);
+      font-size: 0.95rem;
+      line-height: 1.9;
+    }
+
+    .team-certs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .cert-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 1.25rem;
+      border: 1px solid var(--color-border);
+      background: var(--bg-glass);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--color-text);
+      transition: var(--transition);
+    }
+
+    .cert-item:hover { border-color: var(--color-border-bright); }
+
+    .cert-item .cert-icon {
+      font-size: 1.1rem;
+      width: 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .cert-status {
+      margin-left: auto;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--color-accent-2);
+      text-transform: uppercase;
+    }
+
+    /* ── DIFFERENCE ── */
+    .diff-section { padding: var(--spacing-section) 0; position: relative; z-index: 1; }
+
+    .diff-table {
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+
+    .diff-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .diff-header div {
+      padding: 1rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .diff-header div:nth-child(2) { color: var(--color-muted); border-left: 1px solid var(--color-border); text-align: center; }
+    .diff-header div:nth-child(3) { color: var(--color-accent); border-left: 1px solid var(--color-border); text-align: center; }
+
+    .diff-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      border-bottom: 1px solid var(--color-border);
+      transition: var(--transition);
+    }
+
+    .diff-row:last-child { border-bottom: none; }
+    .diff-row:hover { background: var(--bg-glass); }
+
+    .diff-row div {
+      padding: 1rem 1.5rem;
+      font-size: 0.88rem;
+    }
+
+    .diff-row .feature { color: var(--color-text); }
+    .diff-row .them { color: var(--color-muted); border-left: 1px solid var(--color-border); text-align: center; }
+    .diff-row .us { color: var(--color-accent-2); border-left: 1px solid var(--color-border); text-align: center; font-weight: 600; }
+
+    /* ── CONTACT STRIP ── */
+    .cta-strip {
+      padding: var(--spacing-section) 0;
+      border-top: 1px solid var(--color-border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-strip-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .cta-strip h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .philosophy-grid { grid-template-columns: 1fr 1fr; }
+      .team-intro { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+      .philosophy-grid { grid-template-columns: 1fr; }
+      .diff-header, .diff-row { grid-template-columns: 1.5fr 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><div class="logo-mark"></div>NEXUS<span class="accent">COMMERCE</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html" class="nav-cta">Get Started</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="about.html">About</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="contact.html">Get Started</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-bg">
+    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1800&auto=format&fit=crop&q=80" alt="Team collaboration" loading="eager">
+  </div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="section-label animate-in">Our Story</div>
+        <h1 class="animate-in" data-delay="100">We Build<br><span class="accent">What Others</span><br>Won't Touch.</h1>
+      </div>
+      <div class="hero-manifesto animate-in" data-delay="200">
+        <p>NexusCommerce was built out of frustration. We watched too many people get handed generic dropshipping courses, cookie-cutter Shopify templates, and promises of "passive income" — and then fail.</p>
+        <p>So we built the alternative: a real ecommerce agency that does the actual work. We find the niches, build the infrastructure, and put certified experts in your corner. You get a business, not a blueprint.</p>
+        <p>We operate in markets others avoid because they're complex — and that complexity is exactly where margin lives.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy-section">
+  <div class="container">
+    <div class="section-label animate-in">What We Believe</div>
+    <h2 class="section-title animate-in" data-delay="100">Our Operating <span class="accent">Philosophy</span></h2>
+    <div class="philosophy-grid">
+      <div class="philosophy-item animate-in">
+        <span class="p-icon">◈</span>
+        <h3>Complexity Is Opportunity</h3>
+        <p>The niches most agencies avoid — research chemicals, regulated products, specialty markets — are exactly where margin is highest. We go there because we know how to navigate them.</p>
+      </div>
+      <div class="philosophy-item animate-in" data-delay="100">
+        <span class="p-icon">⬡</span>
+        <h3>No Templates. Ever.</h3>
+        <p>Every store we build is engineered for its specific market. Your supplier relationships, your product catalog, your customer, your conversion path — custom from day one.</p>
+      </div>
+      <div class="philosophy-item animate-in" data-delay="200">
+        <span class="p-icon">◉</span>
+        <h3>Revenue Is the Only Metric</h3>
+        <p>We don't celebrate traffic, impressions, or "brand awareness." We celebrate one thing: money in your account, month after month. Everything else is noise.</p>
+      </div>
+      <div class="philosophy-item animate-in" data-delay="0">
+        <span class="p-icon">⚡</span>
+        <h3>AI Amplifies Humans</h3>
+        <p>We don't replace expert judgment with AI — we use AI to make our experts faster, smarter, and better equipped. The machine finds the signal. The human acts on it.</p>
+      </div>
+      <div class="philosophy-item animate-in" data-delay="100">
+        <span class="p-icon">∞</span>
+        <h3>Scalability By Design</h3>
+        <p>Every system we build is architected to scale. Day-one infrastructure that won't break at 10x. Multi-channel from the start. Automation built in, not bolted on.</p>
+      </div>
+      <div class="philosophy-item animate-in" data-delay="200">
+        <span class="p-icon">⬢</span>
+        <h3>Long-Term Relationships</h3>
+        <p>We're not a one-and-done build agency. We assign managers, we run monthly strategy sessions, we grow with you. Our success is measured by your continued revenue growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM / CREDENTIALS -->
+<section class="team-section">
+  <div class="container">
+    <div class="section-label animate-in">Our Team</div>
+    <h2 class="section-title animate-in" data-delay="100">Certified. Experienced. <span class="accent">In Your Corner.</span></h2>
+    <div class="team-intro">
+      <div class="animate-in" data-delay="100">
+        <p>Our team is composed of certified ecommerce specialists, marketplace veterans, and AI engineers. We've collectively managed hundreds of stores across every major platform.</p>
+        <p style="margin-top:1rem">When you become a NexusCommerce client, you get a dedicated certified manager — one person who owns your store's performance. They know your niche, your metrics, and your goals. They show up every single day.</p>
+        <a href="contact.html" class="btn btn-outline" style="margin-top:2rem">Meet Your Potential Manager →</a>
+      </div>
+      <div class="team-certs animate-in" data-delay="200">
+        <div class="cert-item"><span class="cert-icon">🏆</span>eBay Certified Business Seller<span class="cert-status">Verified</span></div>
+        <div class="cert-item"><span class="cert-icon">🛍️</span>Google Merchant Center Specialist<span class="cert-status">Certified</span></div>
+        <div class="cert-item"><span class="cert-icon">⚡</span>Walmart Marketplace Partner<span class="cert-status">Verified</span></div>
+        <div class="cert-item"><span class="cert-icon">◈</span>Shopify Partner / Expert<span class="cert-status">Certified</span></div>
+        <div class="cert-item"><span class="cert-icon">⚙️</span>Ecommerce Revenue Optimization<span class="cert-status">Certified</span></div>
+        <div class="cert-item"><span class="cert-icon">🤖</span>AI Integration Specialist<span class="cert-status">In Progress</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENCE -->
+<section class="diff-section">
+  <div class="container">
+    <div class="section-label animate-in">The Difference</div>
+    <h2 class="section-title animate-in" data-delay="100">Us vs. <span class="accent">Everyone Else</span></h2>
+    <div class="diff-table animate-in" data-delay="200">
+      <div class="diff-header">
+        <div style="color:var(--color-muted)">What You're Comparing</div>
+        <div>Typical Agency</div>
+        <div>NexusCommerce</div>
+      </div>
+      <div class="diff-row"><div class="feature">Store Design</div><div class="them">Template-based</div><div class="us">100% Custom</div></div>
+      <div class="diff-row"><div class="feature">Product/Niche Selection</div><div class="them">Generic dropship lists</div><div class="us">Validated, proven niches</div></div>
+      <div class="diff-row"><div class="feature">Sales Channels</div><div class="them">Your store only</div><div class="us">eBay + Google + Walmart + Store</div></div>
+      <div class="diff-row"><div class="feature">Ongoing Management</div><div class="them">DIY after launch</div><div class="us">Dedicated certified expert</div></div>
+      <div class="diff-row"><div class="feature">AI Tools</div><div class="them">None or basic plugins</div><div class="us">Custom AI stack (pricing, listings, inventory)</div></div>
+      <div class="diff-row"><div class="feature">Niche Complexity</div><div class="them">Simple commodities only</div><div class="us">Any validated niche, including regulated</div></div>
+      <div class="diff-row"><div class="feature">Revenue Guarantee</div><div class="them">No accountability</div><div class="us">Performance-backed promises</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-strip">
+  <div class="container">
+    <div class="cta-strip-inner animate-in">
+      <div>
+        <h2>Ready to Work With a Team<br>That Actually <span style="color:var(--color-accent)">Delivers?</span></h2>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn-primary">Book a Strategy Call →</a>
+        <a href="pricing.html" class="btn btn-outline">See Pricing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><div class="logo-mark"></div>NEXUS<span class="accent">COMMERCE</span></a><p>We build turnkey ecommerce businesses that generate real revenue. Certified experts. Proven systems. Real results.</p></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Turnkey Store Builds</a></li><li><a href="services.html">Store Management</a></li><li><a href="services.html">Multi-Channel Listing</a></li><li><a href="services.html">AI Integration</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Platforms</h4><ul><li><a href="#">eBay</a></li><li><a href="#">Google Shopping</a></li><li><a href="#">Walmart Marketplace</a></li><li><a href="#">Shopify / WooCommerce</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 NexusCommerce. All rights reserved.</p>
+      <p>Certified Ecommerce Experts · AI-Powered Growth</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

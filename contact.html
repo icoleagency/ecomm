@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — NexusCommerce</title>
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    
+    .page-hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .page-hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: saturate(0.2) brightness(0.15);
+    }
+
+    .page-hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(2,4,8,0.95) 40%, rgba(2,4,8,0.6) 100%);
+    }
+
+    .page-hero > .container { position: relative; z-index: 2; }
+
+    .page-hero {
+      padding: calc(72px + clamp(4rem, 8vw, 7rem)) 0 clamp(3rem, 6vw, 5rem);
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero h1 .accent { color: var(--color-accent); }
+
+    .page-hero p {
+      color: var(--color-muted);
+      font-size: 1.05rem;
+      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    /* ── CONTACT LAYOUT ── */
+    .contact-section { padding: var(--spacing-section) 0; position: relative; z-index: 1; }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 1px;
+      background: var(--color-border);
+      border: 1px solid var(--color-border);
+    }
+
+    /* LEFT PANEL */
+    .contact-info {
+      background: var(--bg-secondary);
+      padding: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .contact-info h2 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .contact-info > p {
+      color: var(--color-muted);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .info-items { display: flex; flex-direction: column; gap: 0; }
+
+    .info-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .info-item:last-child { border-bottom: none; }
+
+    .info-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      background: var(--bg-glass);
+    }
+
+    .info-text .label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 0.2rem;
+    }
+
+    .info-text .value {
+      font-size: 0.88rem;
+      color: var(--color-text);
+    }
+
+    .availability {
+      margin-top: 2rem;
+      padding: 1.25rem;
+      background: rgba(0,255,157,0.05);
+      border: 1px solid rgba(0,255,157,0.2);
+    }
+
+    .availability .av-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-accent-2);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .availability .av-label::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--color-accent-2);
+      border-radius: 50%;
+      animation: pulse-glow 2s ease infinite;
+    }
+
+    .availability p { font-size: 0.83rem; color: var(--color-muted); line-height: 1.7; }
+
+    /* RIGHT PANEL — FORM */
+    .contact-form-panel {
+      background: var(--bg-primary);
+      padding: clamp(2rem, 4vw, 3.5rem);
+    }
+
+    .form-header {
+      margin-bottom: 2rem;
+    }
+
+    .form-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--color-muted);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin-bottom: 1px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-secondary);
+      border: 1px solid var(--color-border);
+      padding: 0.85rem 1rem;
+      transition: var(--transition);
+      margin-bottom: 0;
+    }
+
+    .form-group:focus-within {
+      border-color: var(--color-accent);
+      background: var(--bg-card);
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 0.35rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--color-text);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      width: 100%;
+      resize: none;
+    }
+
+    .form-group select option { background: var(--bg-secondary); color: var(--color-text); }
+
+    .form-group textarea { min-height: 100px; }
+
+    .form-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-submit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .form-submit p {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--color-muted);
+    }
+
+    button.btn {
+      background: var(--color-accent);
+      color: var(--bg-primary);
+      border: 1px solid var(--color-accent);
+      cursor: pointer;
+    }
+
+    button.btn:hover {
+      background: transparent;
+      color: var(--color-accent);
+      box-shadow: var(--glow);
+    }
+
+    /* Success state */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .form-success.show { display: block; }
+    .form-success .success-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .form-success h3 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .form-success p { color: var(--color-muted); font-size: 0.9rem; }
+
+    /* ── WHAT HAPPENS NEXT ── */
+    .next-section { padding: var(--spacing-section) 0; border-top: 1px solid var(--color-border); position: relative; z-index: 1; }
+
+    .next-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--color-border);
+      border: 1px solid var(--color-border);
+      margin-top: 3rem;
+    }
+
+    .next-step {
+      background: var(--bg-secondary);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .next-step:hover { background: var(--bg-card); }
+
+    .next-step .ns-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--color-border-bright);
+      margin-bottom: 1rem;
+    }
+
+    .next-step h4 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .next-step p { font-size: 0.83rem; color: var(--color-muted); line-height: 1.7; }
+
+    @media (max-width: 1024px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .next-steps { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .next-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+<canvas id="particle-canvas"></canvas>
+<div class="grid-bg"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><div class="logo-mark"></div>NEXUS<span class="accent">COMMERCE</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html" class="nav-cta active">Get Started</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="portfolio.html">Portfolio</a>
+  <a href="about.html">About</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="contact.html">Get Started</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-bg">
+    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1800&auto=format&fit=crop&q=80" alt="Modern office" loading="eager">
+  </div>
+  <div class="container">
+    <div class="section-label animate-in">Get In Touch</div>
+    <h1 class="animate-in" data-delay="100">Let's Build<br><span class="accent">Your Business.</span></h1>
+    <p class="animate-in" data-delay="200">Tell us where you are and where you want to be. We'll tell you exactly what it takes to get there.</p>
+  </div>
+</section>
+
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-layout animate-in">
+
+      <!-- LEFT: Info -->
+      <div class="contact-info">
+        <h2>Before Your Strategy Call</h2>
+        <p>Fill out the form and a certified ecommerce specialist will reach out within 24 hours to schedule your strategy session. No sales pitch — just a real conversation about your goals.</p>
+
+        <div class="info-items">
+          <div class="info-item">
+            <div class="info-icon">📧</div>
+            <div class="info-text">
+              <div class="label">Email</div>
+              <div class="value">hello@nexuscommerce.io</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">📞</div>
+            <div class="info-text">
+              <div class="label">Phone / Text</div>
+              <div class="value">+1 (555) 000-0000</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon">⏱️</div>
+            <div class="info-text">
+              <div class="label">Response Time</div>
+              <div class="value">Within 24 hours</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="availability">
+          <div class="av-label">Currently Accepting Clients</div>
+          <p>We take on a limited number of new clients each quarter to maintain service quality. If you're serious about building, now is the time to reach out.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form -->
+      <div class="contact-form-panel">
+        <div class="form-header">
+          <h3>Strategy Call Request</h3>
+          <p>// FILL OUT THE FORM BELOW — WE'LL REACH OUT WITHIN 24HRS</p>
+        </div>
+
+        <form id="contactForm">
+          <div class="form-fields">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" placeholder="John" required>
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="lname" placeholder="Smith" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="john@company.com" required>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="situation">Current Situation</label>
+              <select id="situation" name="situation" required>
+                <option value="" disabled selected>Select your current situation...</option>
+                <option>I'm completely new to ecommerce</option>
+                <option>I already resell online and want to scale</option>
+                <option>I own a business and want to add ecommerce</option>
+                <option>I have an existing store that needs management</option>
+                <option>I want AI integration on an existing operation</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="budget">Investment Range</label>
+                <select id="budget" name="budget">
+                  <option value="" disabled selected>Select budget range...</option>
+                  <option>$5,000 – $10,000</option>
+                  <option>$10,000 – $20,000</option>
+                  <option>$20,000+</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="tier">Interested In</label>
+                <select id="tier" name="tier">
+                  <option value="" disabled selected>Which tier?</option>
+                  <option>Launch – $4,997 setup</option>
+                  <option>Scale – $9,997 setup</option>
+                  <option>Dominance – $19,997 setup</option>
+                  <option>Not sure / Custom</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Tell Us About Your Goals</label>
+              <textarea id="message" name="message" placeholder="What are you trying to build? Any specific niches in mind? What's your timeline?" rows="4"></textarea>
+            </div>
+          </div>
+
+          <div class="form-submit">
+            <p>We respond within 24 hours on business days.</p>
+            <button type="submit" class="btn btn-primary">Send My Request →</button>
+          </div>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon">◈</div>
+          <h3>Request Received.</h3>
+          <p>We've logged your information and a certified specialist will reach out within 24 hours to schedule your strategy call.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHAT HAPPENS NEXT -->
+<section class="next-section">
+  <div class="container">
+    <div class="section-label animate-in">What Happens Next</div>
+    <h2 class="section-title animate-in" data-delay="100">After You <span class="accent">Submit</span></h2>
+    <div class="next-steps">
+      <div class="next-step animate-in">
+        <div class="ns-num">01</div>
+        <h4>We Review</h4>
+        <p>Our team reviews your submission within 24 hours and prepares for your call with relevant market data.</p>
+      </div>
+      <div class="next-step animate-in" data-delay="100">
+        <div class="ns-num">02</div>
+        <h4>Strategy Call</h4>
+        <p>A 45-minute call with a certified specialist. We learn your goals, share opportunities, and answer every question.</p>
+      </div>
+      <div class="next-step animate-in" data-delay="200">
+        <div class="ns-num">03</div>
+        <h4>Proposal</h4>
+        <p>We send a custom proposal specific to your niche, channels, and timeline. No generic packages — tailored to you.</p>
+      </div>
+      <div class="next-step animate-in" data-delay="300">
+        <div class="ns-num">04</div>
+        <h4>Build Begins</h4>
+        <p>Once you're on board, your dedicated manager starts building. Your store launches in 4–8 weeks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><div class="logo-mark"></div>NEXUS<span class="accent">COMMERCE</span></a><p>We build turnkey ecommerce businesses that generate real revenue. Certified experts. Proven systems. Real results.</p></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Turnkey Store Builds</a></li><li><a href="services.html">Store Management</a></li><li><a href="services.html">Multi-Channel Listing</a></li><li><a href="services.html">AI Integration</a></li></ul></div>
+      <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Platforms</h4><ul><li><a href="#">eBay</a></li><li><a href="#">Google Shopping</a></li><li><a href="#">Walmart Marketplace</a></li><li><a href="#">Shopify / WooCommerce</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 NexusCommerce. All rights reserved.</p>
+      <p>Certified Ecommerce Experts · AI-Powered Growth</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+  });
+</script>
+</body>
+</html>
